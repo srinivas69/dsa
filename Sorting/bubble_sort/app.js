@@ -36,6 +36,8 @@ function bubbleSort(arr){
     var arr = [243, 45, 23, 356, 3, 5346, 35, 5];
 
     //var arr = [3, 5, 23, 35, 45, 243, 356, 5346];
+
+    //var arr = [3, 5, 23, 35, 45, 243, 356, 5346];
     
     // calling the bubbleSort Function
     bubbleSort(arr)
