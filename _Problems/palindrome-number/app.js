@@ -1,4 +1,5 @@
 //https://leetcode.com/problems/palindrome-number/
+//Solution 1
 /**
  * @param {number} x
  * @return {boolean}
@@ -117,6 +118,22 @@ console.log(isPalindrome(242));
  * @param {number} x
  * @return {boolean}
  */
- var isPalindrome = function(x) {
+ var isPalindromeSolution2 = function(x) {
+
+    if (x < 0 || (x > 0 && x%10 == 0))
+            return false;
+
+    
+    let reversedNum = 0
+    while (x > reversedNum){
+        reversedNum = reversedNum * 10 + x % 10
+        x = parseInt((x / 10), 10);
+
+        console.log(`reversedNum: ${reversedNum} x: ${x}`);
+    }
+
+    return (x == reversedNum || x == parseInt((reversedNum / 10), 10));
 
  }
+
+ console.log(isPalindromeSolution2(242));
