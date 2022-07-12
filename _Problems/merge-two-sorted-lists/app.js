@@ -184,6 +184,7 @@ isEmpty()
 size_of_list()
 {
 	console.log(this.size);
+	return this.size;
 }
 
 // prints the list items
@@ -208,29 +209,62 @@ printList()
  */
  var mergeTwoLists = function(list1, list2) {
     
+	const finalList = list1;
 
+	let curr = list2.head;
+	while (curr) {
+		const element = curr.element;
+		finalList.add(element);
+		curr = curr.next;
+	}
+
+	const size = finalList.size_of_list();
+
+	mergeSort(finalList, 0, size-1)
 };
 
-var ll = new ListNode();
- 
-// testing isEmpty on an empty list
-// returns true
-console.log(ll.isEmpty());
+function mergeSort(list,l, r){
+	if(l>=r){
+		return;//returns recursively
+	}
+	var m =l+ parseInt((r-l)/2);
+	mergeSort(list,l,m);
+	mergeSort(list,m+1,r);
+	merge(list,l,m,r);
+}
+
+function merge(arr, l, m, r)
+{
+	var n1 = m - l + 1;
+	var n2 = r - m;
+
+	// Create temp arrays
+	var L = new ListNode();
+	var R = new ListNode();
+
+	// Copy data to temp arrays L[] and R[]
+	for (var i = 0; i < n1; i++)
+		L[i] = arr[l + i];
+	for (var j = 0; j < n2; j++)
+		R[j] = arr[m + 1 + j];
+}
+
+var ll1 = new ListNode();
+var ll2 = new ListNode();
 
 // adding element to the list
-ll.add(10);
- 
-// prints 10
-ll.printList();
-
-// returns 1
-console.log(ll.size_of_list());
+ll1.add(10);
  
 // adding more elements to the list
-ll.add(20);
-ll.add(30);
-ll.add(40);
-ll.add(50);
+ll1.add(20);
+ll1.add(30);
+ll1.add(40);
+ll1.add(50);
 
-// returns 10 20 30 40 50
-ll.printList();
+ll2.add(11);
+ll2.add(21);
+ll2.add(31);
+ll2.add(41);
+ll2.add(51);
+
+mergeTwoLists(ll1,ll2);
