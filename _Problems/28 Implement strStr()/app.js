@@ -1,3 +1,4 @@
+//https://leetcode.com/problems/implement-strstr/submissions/
 /**
  * @param {string} haystack
  * @param {string} needle
