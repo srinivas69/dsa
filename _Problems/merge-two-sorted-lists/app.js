@@ -268,3 +268,40 @@ ll2.add(41);
 ll2.add(51);
 
 mergeTwoLists(ll1,ll2);
+
+var mergeTwoLists2 = function(list1, list2) {
+    let head = null;
+    let prev;
+
+    while (list1 || list2) {
+        let next;
+
+        if (list1 && list2) {
+            if (list1.val < list2.val) {
+                next = list1;
+                list1 = list1.next;
+            } else {
+                next = list2;
+                list2 = list2.next;
+            }
+        } else if (list1) {
+            next = list1;
+            list1 = list1.next;
+        } else if (list2) {
+            next = list2;
+            list2 = list2.next;
+        }
+        
+        if (prev) {
+            prev.next = next;
+        }
+        
+        prev = next;
+        
+        if (!head) {
+            head = next;
+        }
+    }
+    
+    return head;
+};
