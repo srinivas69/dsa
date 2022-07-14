@@ -15,7 +15,7 @@
     //console.log("s: ",s," sLen: ",sLen);
     for(let i=sLen-1; i>=0; i--) {
 
-        console.log("for s[i]: ",s[i]);
+        //console.log("for s[i]: ",s[i]);
         if(!lastWord && (/\s/).test(s[i])) {
 
             rightPointer--;
