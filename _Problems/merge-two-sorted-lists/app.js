@@ -269,7 +269,14 @@ ll2.add(51);
 
 mergeTwoLists(ll1,ll2);
 
+/**
+ * @param {ListNode2} list1
+ * @param {ListNode2} list2
+ * @return {ListNode2}
+ */
 var mergeTwoLists2 = function(list1, list2) {
+
+	//console.log("list1: ",list1.val,list2.val)
     let head = null;
     let prev;
 
@@ -297,11 +304,41 @@ var mergeTwoLists2 = function(list1, list2) {
         }
         
         prev = next;
-        
+
+		console.log("prev : ",prev)
+		
+		//console.log("head before: ",head)
         if (!head) {
             head = next;
+			//console.log("head: ",head,"\n")
         }
     }
     
     return head;
 };
+
+
+ //Definition for singly-linked list.
+ function ListNode2(val, next) {
+     this.val = (val===undefined ? 0 : val)
+     this.next = (next===undefined ? null : next)
+ }
+
+ list1 = {
+	val:23,
+	next: {
+		val: 45,
+		next: null
+	}
+ }
+
+ list2 = {
+	val:24,
+	next: {
+		val: 48,
+		next: null
+	}
+ }
+ 
+
+console.log(mergeTwoLists2(list1,list2));
