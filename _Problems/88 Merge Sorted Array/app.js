@@ -97,8 +97,30 @@ while (i >= m) {
     i--;
     j++;
 }
-nums1.sort((x, y) => x - y);
+//nums1.sort((x, y) => x - y);
 
+console.log("Before: ",nums1);
+
+for(i =0; i < nums1.length; i++){
+        
+	isSwapped = false;
+	
+	for(j = 0; j < nums1.length; j++){
+		if(nums1[j] > nums1[j + 1]){
+		var temp = nums1[j]
+		nums1[j] = nums1[j+1];
+		nums1[j+1] = temp;
+		isSwapped = true;
+		}
+	}
+	
+	// IF no two elements were swapped by inner loop, then break
+	
+	//console.log(`${i} ${isSwapped}`);
+	if(!isSwapped){
+	break;
+	}
+}
 return nums1;
 };
 
