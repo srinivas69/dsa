@@ -18,10 +18,10 @@
 
         if(node !== null)
 	    {
-		    inorder(node.left);
-            resultArr.push(val);
+		    inOrderTraversal(node.left);
+            resultArr.push(node.val);
 		    console.log(node.val);
-		    inorder(node.right);
+		    inOrderTraversal(node.right);
 	    }
     })(root);
     
