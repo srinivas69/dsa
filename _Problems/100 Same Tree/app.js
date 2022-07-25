@@ -1,61 +1,109 @@
 //https://leetcode.com/problems/same-tree/
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
+
+  //Definition for a binary tree node.
+function TreeNode(val, left, right) {
+      this.val = (val===undefined ? 0 : val)
+      this.left = (left===undefined ? null : left)
+      this.right = (right===undefined ? null : right)
+ }
+
 /**
  * @param {TreeNode} p
  * @param {TreeNode} q
  * @return {boolean}
  */
+// Solution 1
  var isSameTree = function(p, q) {
+
+    let isSameTreeVal = true;
     
-    const resultArrP = [];
-    const resultArrQ = [];
+    (function inOrderTraversal(nodeP,nodeQ){
 
-    (function inOrderTraversalP(node){
-
-        if(node !== null)
+        if(nodeP !== null || nodeQ !==null)
 	    {
-		    inOrderTraversalP(node.left);
-            resultArrP.push(node.val);
-		    console.log(node.val);
-		    inOrderTraversalP(node.right);
-	    } else {
-           resultArrP.push(node.val);
-        }
-    })(p);
+            inOrderTraversal(nodeP !== null ? nodeP.left : null, nodeQ !== null ? nodeQ.left : null);
+            const nodePVal =  nodeP !== null ? nodeP.val : null;
+            const nodeQVal = nodeQ !== null ? nodeQ.val : null;
+		    console.log(`nodeP val: ${nodePVal} nodeQ val: ${nodeQVal}`);
 
-    (function inOrderTraversalQ(node){
+            if(nodePVal != nodeQVal) {
 
-        if(node !== null)
-	    {
-		    inOrderTraversalQ(node.left);
-            resultArrQ.push(node.val);
-		    console.log(node.val);
-		    inOrderTraversalQ(node.right);
-	    } else {
-            resultArrQ.push(node.val);
-         }
-    })(q);
+                console.log("if(nodePVal != nodeQVal) {")
+                isSameTreeVal = false;
+                return;
+            } else 
+            inOrderTraversal(nodeP != null ? nodeP.right : null,nodeQ != null ? nodeQ.right : null);
+	    } 
+    })(p,q);
 
-    let result = true;
+    return isSameTreeVal;
+}
 
-    if(resultArrP.length != resultArrQ.length)
-        result = false;
 
-    for(let i=0; i<resultArrP.length; i++){
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+// Solution 2
+var isSameTree = function(p, q) {
 
-        if(resultArrP[i]!=resultArrQ[i])
-            return false;
+    if(p == null && q == null) {
+        return true;
+    } else {
+        return p != null && q != null && p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
+}
+// const p = {
 
-    console.log(`p: ${p} q: ${q}`)
+//     val: 1,
+//     left: {
+//         val: 2,
+//         left: null,
+//         right: null
+//     },
+//     right: {
+//         val: 3,
+//         left: null,
+//         right: null
+//     }
+// }
 
-    return result;
-    
-};
+// const q = {
+
+//     val: 1,
+//     left: {
+//         val: 2,
+//         left: null,
+//         right: null
+//     },
+//     right: {
+//         val: 3,
+//         left: null,
+//         right: null
+//     }
+// }
+
+const p = {
+
+    val: 1,
+    left: {
+        val: 2,
+        left: null,
+        right: null
+    },
+    right: null
+}
+
+const q = {
+
+    val: 1,
+    left: null,
+    right: {
+        val: 2,
+        left: null,
+        right: null
+    }
+}
+
+console.log(isSameTree(p,q));
