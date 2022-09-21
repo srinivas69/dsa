@@ -7,26 +7,19 @@ function TreeNode(val, left, right) {
     this.right = (right===undefined ? null : right)
 }
  
+// Solution 1
 /**
  * @param {number[]} nums
  * @return {TreeNode}
  */
- var sortedArrayToBST = function(nums) {
+ var sortedArrayToBST1 = function(nums) {
 
     const middleIndex = Math.trunc(nums.length / 2);
 
-    //console.log(Math.trunc(middleIndex));
-
-    //const leftSlic = nums.slice(0,middleIndex);
-    //const rightSlic = nums.slice(middleIndex+1);
-
-    //console.log(leftSlic,rightSlic);
-
     const root = new TreeNode(nums[middleIndex]);
-    let node = root;
 
     (
-        function constructTree(numsSlice,indic) {
+        function constructTree(node,numsSlice,indic) {
 
             if(numsSlice.length > 0) {
 
@@ -35,7 +28,7 @@ function TreeNode(val, left, right) {
                 const leftSlic = numsSlice.slice(0,middleIndexSlic);
                 const rightSlic = numsSlice.slice(middleIndexSlic+1);
 
-                console.log(leftSlic, rightSlic);
+                //console.log(leftSlic, rightSlic);
 
                 if(indic === "l") {
                     
@@ -48,15 +41,51 @@ function TreeNode(val, left, right) {
                     node.right = new TreeNode(numsSlice[middleIndexSlic]);
                     node = node.right;
                 }
-                constructTree(leftSlic, "l");
-                constructTree(rightSlic, "r");
+                constructTree(node,leftSlic, "l");
+                constructTree(node,rightSlic, "r");
             }
 
         }
-    )(nums);
+    )(root,nums);
 
-    console.log(JSON.stringify(root))
+    //console.log(JSON.stringify(root))
     return root;
 };
+
+// Solution 2
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+ var sortedArrayToBST2 = function(nums) {
+
+    return makeTree(nums, 0, nums.length - 1);
+ }
+
+ function makeTree(nums, left, right){
+    if(left > right)return null;
+    let mid = Math.floor((left+right)/2);
+    let root = new TreeNode(nums[mid]);
+    root.left = makeTree(nums,left,mid-1);
+    root.right = makeTree(nums,mid+1,right);
+
+    return root;
+}
+
+// Solution 3
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+ var sortedArrayToBST = function(nums,left=0,right=nums.length-1) {
+
+    if(left > right)return null;
+    let mid = Math.floor((left+right)/2);
+    let root = new TreeNode(nums[mid]);
+    root.left = sortedArrayToBST(nums,left,mid-1);
+    root.right = sortedArrayToBST(nums,mid+1,right);
+
+    return root;
+ }
 
 console.log(sortedArrayToBST([-10,-3,0,5,9,10]));
