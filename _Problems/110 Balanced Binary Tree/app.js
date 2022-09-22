@@ -6,12 +6,12 @@ function TreeNode(val, left, right) {
      this.left = (left===undefined ? null : left)
      this.right = (right===undefined ? null : right)
  }
- 
+ // Solution 1
 /**
  * @param {TreeNode} root
  * @return {boolean}
  */
- var isBalanced = function(root) {
+ var isBalanced1 = function(root) {
     
     let balanced = true;
     (function findDiff(node){
@@ -58,6 +58,32 @@ function findHeight(node) {
     //console.log(lh, rh);
     return 1+Math.max(lh,rh);
 
+}
+
+var ans = true;
+// Solution 2
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+ var isBalanced = function(root) {
+    heightOfTree(root);
+    console.log("ans: ",ans)
+    return ans;
+ }
+
+ function heightOfTree(currentnode){
+    if(currentnode===null){
+      return 0;
+    }
+    const lh = heightOfTree(currentnode.left);
+    const rh = heightOfTree(currentnode.right);
+    const a = Math.abs(lh-rh);
+    if(a>1){
+      ans = false;
+    }
+    const height =Math.max(lh,rh)+1;
+    return height;
 }
 
 const p = new TreeNode(1);
